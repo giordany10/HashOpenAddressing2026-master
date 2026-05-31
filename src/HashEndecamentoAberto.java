@@ -73,19 +73,25 @@ public class HashEndecamentoAberto<T> {
         return false;
     }// fim funcao put
 //------------------------------------------------------
-    public boolean containsKey(long key) {
+     public boolean containsKey(long key) {
         int deslocamento = 0;
         int posicao;
         do {
+            // calcula a posição usando a função hash e o deslocamento
             posicao = funcaoHash(key, deslocamento);
+            // se encontrar uma posição vazia, a chave não está na tabela
             if (tabela[posicao].estado == VAZIO) {
                 return false;
             }
+            // se a posição está ocupada e a chave bate, então a chave existe
             if (tabela[posicao].estado == OCUPADO && tabela[posicao].dado.key == key) {
                 return true;
             }
+            // se não achou ainda, incrementa o deslocamento e tenta a próxima posição
             deslocamento++;
         } while (deslocamento < tamanho);
+
+        // percorreu toda a tabela e não encontrou a chave
         return false;
     }
 
